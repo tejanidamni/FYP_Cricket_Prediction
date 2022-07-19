@@ -1,0 +1,433 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    <title>FYP website</title>
+    <style media="screen">
+
+    body{
+      background-image: url({{ url_for('static', filename='images/multicolor.jpeg') }});
+      height: 100;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      position: relative;
+      font-family: "Courier New", Courier, monospace;
+      line-height: 3.1rem;
+    }
+
+    h1{
+      /* font-size: 2rem;
+      font-weight: bold; */
+      margin-top: 3%;
+    }
+
+
+    .btn{
+      font-weight: normal;
+      font-size: 2.2rem;
+      border: none; /* Remove borders */
+      color: black; /* White text */
+      background-color: white;
+    }
+
+    #submit:hover {
+      background-color: #1f8d9c; /* Green */
+      color: white;
+    }
+
+
+    .form-group{
+      margin-bottom: 0%;
+    }
+
+    .bootstrap-select > .dropdown-toggle.bs-placeholder{
+      color:#495057;
+    }
+
+    label{
+      font-size: 1.5rem;
+      margin-top: 3%;
+    }
+
+
+    select option:not(:disabled) {
+      color:black;
+    }
+
+
+    .col-12{
+      padding: 0%;
+    }
+
+
+    .nav-item{
+      background-color: #58d6b9;
+      color:white;
+      font-size: bold;
+    }
+
+    .nav-tabs .nav-link.active {
+      background-color: #58d6C1;
+      color:white;
+      font-size: bold;
+
+    }
+
+
+    .player{
+      font-size: 1.2rem;
+    }
+
+    @media (max-width: 576px) {
+      h1 {display:none}
+      h3 {display:block}
+
+
+    }
+
+    @media (min-width: 576px) and (max-width: 767.98px) {
+      h1 {display:none}
+      h3 {display:block}
+      label{
+        font-size: 0.9rem
+      }
+
+
+
+    }
+
+    @media (min-width: 768px) and (max-width: 991.98px) {
+
+      h1 {display:none}
+      h3 {display:block}
+
+      label{
+        font-size: 0.9rem
+      }
+
+
+
+     }
+
+    @media (min-width: 992px) and (max-width: 1199.98px) {
+
+      h1 {display:block}
+      h3 {display:none}
+
+      nav{
+        font-size: 1.5rem;
+      }
+      label{
+        font-size: 0.9rem
+      }
+    }
+
+
+    @media (min-width: 1200px) {
+
+      h1 {display:block}
+      h3 {display:none}
+
+      nav{
+        font-size: 1.5rem;
+      }
+
+
+    }
+
+
+    </style>
+  </head>
+  <body>
+    <div class="text-white h-100" >
+      <div class="row">
+        <div class="col-12">
+          <nav class="nav nav-tabs nav-justified">
+            <a class="nav-item nav-link active" href="prediction">Cricket Outcome Predictor</a>
+            <a class="nav-item nav-link" href="recommendation">Recommendation System</a>
+          </nav>
+        </div>
+      </div>
+      <div class="row h-100">
+        <div class="col-2">
+        </div>
+        <div class="col-8 text-center font-weight-bolder">
+          <div class="content ">
+            <br>
+            <h1>Cricket Outcome Predictor For Pakistan Cricket Team </h1>
+            <h3>Cricket Outcome Predictor For Pakistan Cricket Team </h3>
+            <br>
+            <form id="form" action="{{ url_for('prediction')}}" method="post">
+              <div class="form-group">
+                <div class="form-row">
+                  <div class="col-md-6 col-sm-12">
+                    <label for="opposite_team"> Opposite_Team </label>
+                    <select class="form-control form-control-lg selectpicker" data-live-search="true" id="opposite_team" name="opposite_team" required>
+                      <option disabled selected></option>
+                      <option>Australia</option>
+                      <option>Bangladesh</option>
+                      <option>England</option>
+                      <option>India</option>
+                      <option>New Zealand</option>
+                      <option>South Africa</option>
+                      <option>Scotland</option>
+                      <option>Sri Lanka</option>
+                      <option>West Indies</option>
+                      <option>Zimbabwe</option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-6 col-sm-12">
+                    <label for="toss">Toss Winner</label>
+                    <select class="form-control form-control-lg selectpicker" data-live-search="true" id="toss" name ="toss" required>
+                      <option disabled selected></option>
+                      <option> Pakistan </option>
+                      <option> Opposite Team </option>
+                    </select>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="form-group">
+                <div class="form-row">
+                  <div class="col-md-6 col-sm-12">
+                    <label for="bat_field"> Batting First</label>
+                    <select class="form-control form-control-lg selectpicker" data-live-search="true" name="bat_first" id="bat_first" required>
+                      <option disabled selected></option>
+                      <option> Pakistan </option>
+                      <option> Opposite Team </option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-6 col-sm-12">
+                    <label for="date">Date of the match</label>
+                    <input class="form-control form-control-lg textbox-n" type="date" id="date" required name="date">
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="form-row">
+                  <div class="col-md-6 col-sm-12">
+                    <label for="match_timing"> Match Timings </label>
+                    <select class="form-control form-control-lg selectpicker" name="match_timing" id="match_timing" required>
+                      <option disabled selected></option>
+                      <option> Day </option>
+                      <option> Night </option>
+                      <option> Day_Night </option>
+                    </select>
+                  </div>
+
+                  <div class="col-md-6 col-sm-12" >
+                    <label for="ground"> Ground of the match </label>
+                    <select type="text" class="form-control form-control-lg selectpicker" data-live-search="true" name="ground" id="ground" required>
+                      <option disabled selected></option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group" id= "ground_country_div">
+                <label for="ground_country" > Ground Country </label>
+                <select class="form-control form-control-lg selectpicker" id="ground_country" data-live-search="true" name="ground_country" required>
+                  <option disabled selected></option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <div class="form-row ">
+                  <div class="col-md-6 col-sm-12">
+                      <label for="pak_players">Pakistan Team players</label>
+                      <select type="text" class="form-control form-control-lg selectpicker" data-live-search="true" id="pak_players" multiple name="pak_players">
+                      </select>
+                  </div>
+
+                  <div class="col-md-6 col-sm-12">
+                      <label for="new_pak_players"> New Pak-players Not in List </label>
+                      <input type="number" class="form-control form-control-lg" name="new_pak_players" placeholder="Nothing Selected" min="0" max="11" id="new_pak_players" oninput="validity.valid;" required>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+
+                <div class="form-row">
+                  <div class="col-md-6 col-sm-12">
+                    <label for="opp_players">Opposite Team players</label>
+                    <select type="text" class="form-control form-control-lg selectpicker" data-live-search="true" id="opp_players" name="opp_players" multiple>
+                    </select>
+
+                  </div>
+                  <div class="col-md-6 col-sm-12">
+                      <label for="new_opp_players">New Opp-players Not in List </label>
+                      <input type="number" class="form-control form-control-lg" name="new_opp_players" placeholder="Nothing Selected" min="0" max="11" id="new_opp_players" oninput="validity.valid;" required>
+                  </div>
+                </div>
+              </div>
+              <br>
+
+              <button type="submit" id="submit" class="btn">Submit</button>
+
+            </form>
+            <br>
+          </div>
+
+        </div>
+        <div class="col-2"></div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" ></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+    <script type="text/javascript">
+
+
+
+    var unique_players = {{ unique_players | tojson}};
+    var unique_ground_countries = {{ unique_ground_countries | tojson}};
+    var unique_grounds  = {{ unique_grounds | tojson}}
+
+
+    // filling pak-players options
+    for (var i=0; i<unique_players.length; i++) {
+      if (unique_players[i]['player_country'] == "Pakistan"){
+        var option = document.createElement("option");
+        option.text = unique_players[i]['player_name'];
+        $('#pak_players').append(option);
+      }
+    }
+
+    // filling ground countries
+    for (var i=0; i<unique_ground_countries.length; i++){
+      var option = document.createElement("option");
+      option.text = unique_ground_countries[i]['Ground_Country'];
+      $('#ground_country').append(option)
+    }
+
+    // filling grounds
+    for(var i=0;i<unique_grounds.length; i++){
+      var option_ground = document.createElement("option");
+      option_ground.text = unique_grounds[i]['Ground'];
+      $('#ground').append(option_ground)
+    }
+
+    var option_ground = document.createElement("option");
+    option_ground.text = "other";
+    $("#ground").append(option_ground)
+
+    // hide ground_country in the beginning
+
+    $('#ground_country_div').hide();
+    $('#ground_country').removeAttr('required');
+
+    //show ground_country div when ground is other
+    $('#ground').change(function() {
+      if ($('#ground').val() == "other") {
+        $('#ground_country_div').show();
+        $('#ground_country').attr('required', 'required');
+      }else{
+        $('#ground_country_div').hide();
+        $('#ground_country').removeAttr('required');
+
+      }
+    })
+
+
+
+
+    $(document).ready(function () {
+      if ($("#opposite_team option:selected").text() == ""){
+        console.log("i am uinside empty")
+        $("#opp_players").attr("disabled", true);
+        $(".selectpicker[data-id='opp_players']").addClass("disabled");
+        $('#opp_players').selectpicker('refresh');
+      }else{
+        var opp_player_cookie = getCookie('opp_players').split(',');
+        console.log(opp_player_cookie)
+
+        $('#opposite_team').val($("#opposite_team option:selected").text()).trigger('change');
+
+        for (i=0;i<opp_player_cookie.length;i++){
+          text=opp_player_cookie[i]+" ";
+          $('#opp_players option:contains("'+text+'")').prop('selected', true)
+
+        }
+        $('#opp_players').selectpicker('refresh');
+
+      }
+
+    })
+
+    //Cookie functions for setting and retrieving, the duration I set is 24hrs only.
+    function setCookie(key, value) {
+        var expires = new Date();
+        expires.setTime(expires.getTime() + (1 * 24 * 60 * 60 * 1000));
+        document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
+    }
+
+    function getCookie(key) {
+        var key = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
+        return key ? key[2] : null;
+    }
+
+
+    $('#opposite_team').change(function() {
+
+      console.log("enter here")
+      $('#opp_players').find('option').remove()
+      var selectedCountry = $("#opposite_team option:selected").text();
+      console.log(selectedCountry);
+      for (var i=0; i<unique_players.length; i++){
+        if (unique_players[i]['player_country'] == selectedCountry) {
+          var option = document.createElement("option");
+          option.text = unique_players[i]['player_name'];
+          $('#opp_players').append(option)
+        }
+      }
+
+      $("#opp_players").prop("disabled", false);
+      $(".selectpicker[data-id='opp_players']").removeClass("disabled");
+      $('#opp_players').selectpicker('refresh');
+
+    })
+
+
+    $(document).ready(function(){
+      $('select').selectpicker();
+    })
+
+    $("#form").submit(function() {
+
+      var total_pak_players = ($('#pak_players').val()).length + parseInt($('#new_pak_players').val());
+      var total_opp_players = ($('#opp_players').val()).length + parseInt($('#new_opp_players').val());
+      setCookie('opp_players', $('#opp_players').val());
+
+      if (total_pak_players != 11) {
+        alert("Total Pakistani players (selected players + the new pak-players not in the list) should be equal to 11");
+        return false;
+      }else if (total_opp_players != 11) {
+        alert("Total Opposite Team players (selected players + the new opp-players not in the list) should be equal to 11");
+        return false;
+      }else{
+        return true;
+      }
+    })
+
+
+
+    </script>
+
+  </body>
+</html>

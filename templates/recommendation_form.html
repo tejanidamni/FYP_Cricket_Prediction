@@ -1,0 +1,798 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script> -->
+
+
+    <title>FYP website</title>
+    <style media="screen">
+
+    body{
+      background-image: url({{ url_for('static', filename='images/multicolor.jpeg') }});
+      height: 100;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      position: relative;
+      font-family: "Courier New", Courier, monospace;
+      line-height: 3.1rem;
+    }
+
+    h1{
+      /* font-size: 2rem;
+      font-weight: bold; */
+      margin-top: 3%;
+    }
+
+    h3{
+      margin-top: 3%;
+    }
+
+    h4{
+      margin-top: 5%;
+
+    }
+
+    h5{
+      margin-top: 5%;
+    }
+
+    .btn{
+      background-color: silver;
+      font-weight: normal;
+      font-size: 2.2rem;
+      border: none; /* Remove borders */
+      color: black; /* White text */
+      background-color: white;
+    }
+
+    .submit:hover {
+      background-color: #1f8d9c; /* Green */
+      color: white;
+    }
+
+    .submit {
+      margin-bottom: 5%;
+    }
+
+    .form-group{
+      margin-bottom: 0%;
+    }
+
+    .bootstrap-select > .dropdown-toggle.bs-placeholder{
+      color:#495057;
+    }
+
+    label{
+      font-size: 0.9rem;
+      margin-top: 3%;
+    }
+
+    .input-group{
+      padding-top: 0.5%;
+    }
+
+    select option:not(:disabled) {
+      color:black;
+    }
+
+
+    .active{
+      color:black;
+    }
+    .nav-item{
+      background-color: silver;
+      color:black;
+    }
+
+
+
+
+    input[type=checkbox]
+    {
+      width: 20%;
+
+    }
+    .player{
+      font-size: 1.2rem;
+    }
+
+    .selected-players{
+      text-align: left;
+    }
+
+    .pakistan{
+      margin-left: 6%;
+
+    }
+
+    .opposite {
+      margin-left: 6%;
+      margin-bottom:3%;
+    }
+
+    div#loading {
+      background: url({{ url_for('static', filename='/ZKZx.gif')}}) no-repeat;
+      cursor: wait;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 20rem;
+
+    }
+
+    .nav-item{
+      background-color: #58d6b9;
+      color:white;
+      font-size: bold;
+    }
+
+    .nav-tabs .nav-link.active {
+      background-color: #58d6C1;
+      color:white;
+      font-size: bold;
+
+    }
+
+    .nav-tabs .nav-link.disabled {
+      background-color: #58d6b9;
+      color:white;
+      font-size: bold;
+
+    }
+    #waiting{
+      margin-bottom: 13rem;
+    }
+
+    @media (max-width: 576px) {
+      h1 {display:none}
+      h3 {display:block}
+
+      .comp-h5{display:block}
+      .comp-h3{display:none}
+
+
+
+    }
+
+    @media (min-width: 576px) and (max-width: 767.98px) {
+      h1 {display:none}
+      h3 {display:block}
+
+      .comp-h5{display:block}
+      .comp-h3{display:none}
+
+    }
+
+    @media (min-width: 768px) and (max-width: 991.98px) {
+
+      h1 {display:none}
+      h3 {display:block}
+
+      .comp-h5{display:none}
+      .comp-h3{display:block}
+
+      label{
+        font-size: 0.9rem;
+      }
+
+     }
+
+    @media (min-width: 992px) and (max-width: 1199.98px) {
+
+      h1 {display:block}
+      h3 {display:none}
+
+      .comp-h5{display:none}
+      .comp-h3{display:block}
+
+      nav{
+        font-size: 1.5rem;
+      }
+
+      label{
+        font-size: 0.9rem;
+      }
+    }
+
+
+    @media (min-width: 1200px) {
+
+      h1 {display:block}
+      h3 {display:none}
+
+      .comp-h5{display:none}
+      .comp-h3{display:block}
+
+      nav{
+        font-size: 1.5rem;
+      }
+      label{
+        font-size: 1.5rem;
+      }
+
+    }
+
+
+   .col-12{
+     padding: 0%;
+   }
+
+   .stopwatch{
+     padding: 2%;
+     margin-bottom:5%;
+   }
+
+
+    </style>
+  </head>
+  <body>
+    <div class="h-100 text-white" >
+      <div class="row">
+        <div class="col-12">
+          <nav class="nav nav-tabs nav-justified">
+            <a class="nav-item nav-link" href="prediction">Cricket Outcome Predictor</a>
+            <a class="nav-item nav-link active" href="recommendation">Recommendation System</a>
+          </nav>
+        </div>
+      </div>
+      <div class="row h-100">
+        <div class="col-2"></div>
+
+        <div class="col-8 text-center font-weight-bolder">
+          <br>
+          <h1>Recommendation System For Pakistan Cricket Team </h1>
+          <h3>Recommendation System For Pakistan Cricket Team </h3>
+          <br>
+
+
+          <div id="loading"class= "justify-content-center" hidden></div>
+
+          <div id="stopwatch" hidden>
+            00:00:00
+          </div>
+
+          <div class="progress" hidden>
+            <div class="progress-bar bg-success" role="progressbar" style="" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+
+          <h4 id="waiting" hidden>This process would take less than five minutes. Please wait.
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+          </h4>
+
+
+          <form id="form1" action="{{ url_for('recommendation')}}" method="post">
+
+            <div class="form-group">
+              <div class="form-row">
+                <div class="col-md-6 col-sm-12">
+                  <label for="form1_opposite_team"> Opposite_Team </label>
+                  <select class="form-control form-control-lg selectpicker" data-live-search="true" id="form1_opposite_team" name="form1_opposite_team" required>
+                    <option disabled selected></option>
+                    <option>Australia</option>
+                    <option>Bangladesh</option>
+                    <option>England</option>
+                    <option>India</option>
+                    <option>New Zealand</option>
+                    <option>South Africa</option>
+                    <option>Scotland</option>
+                    <option>Sri Lanka</option>
+                    <option>West Indies</option>
+                    <option>Zimbabwe</option>
+                  </select>
+                </div>
+
+                <div class="col-md-6 col-sm-12">
+                  <label for="form1_toss">Toss Winner</label>
+                  <select class="form-control form-control-lg selectpicker" data-live-search="true" id="form1_toss" name ="form1_toss" required>
+                    <option disabled selected></option>
+                    <option> Pakistan </option>
+                    <option> Opposite Team </option>
+                  </select>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="form-group">
+              <div class="form-row">
+                <div class="col-md-6 col-sm-12">
+                  <label for="form1_bat_field"> Batting First</label>
+                  <select class="form-control form-control-lg selectpicker" name="form1_bat_first" id="form1_bat_first" required>
+                    <option disabled selected></option>
+                    <option> Pakistan </option>
+                    <option> Opposite Team </option>
+                  </select>
+                </div>
+
+                <div class="col-md-6 col-sm-12">
+                  <label for="form1_date">Date of the match</label>
+                  <input class="form-control form-control-lg textbox-n" type="date" id="form1_date" required name="form1_date">
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="form-row">
+                <div class="col-md-6 col-sm-12">
+                  <label for="form1_match_timing"> Match Timings </label>
+                  <select class="form-control form-control-lg selectpicker" name="form1_match_timing" id="form1_match_timing" required>
+                    <option disabled selected></option>
+                    <option> Day </option>
+                    <option> Night </option>
+                    <option> Day_Night </option>
+                  </select>
+                </div>
+
+                <div class="col-md-6 col-sm-12" >
+                  <label for="form1_ground"> Ground of the match </label>
+                  <select type="text" class="form-control form-control-lg selectpicker" data-live-search="true" name="form1_ground" id="form1_ground" required>
+                    <option disabled selected></option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group" id= "ground_country_div">
+              <label for="form1_ground_country" > Ground Country </label>
+              <select class="form-control form-control-lg selectpicker" data-live-search="true" id="form1_ground_country" name="form1_ground_country" required>
+                <option disabled selected></option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <div class="form-row ">
+                <div class="col-md-6 col-sm-12">
+                    <label for="form1_pak_players">Pakistan Team players</label>
+                    <select type="text" class="form-control form-control-lg selectpicker" data-live-search="true" id="form1_pak_players" multiple name="form1_pak_players">
+                    </select>
+                </div>
+
+                <div class="col-md-6 col-sm-12">
+                    <label for="form1_new_pak_players"> New Pak-players Not in List </label>
+                    <input type="number" class="form-control form-control-lg" name="form1_new_pak_players" placeholder="Nothing Selected" min="0" max="15" id="form1_new_pak_players" oninput="validity.valid;" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+
+              <div class="form-row">
+                <div class="col-md-6 col-sm-12">
+                  <label for="form1_opp_players">Opposite Team players</label>
+                  <select type="text" class="form-control form-control-lg selectpicker" data-live-search="true" id="form1_opp_players" name="form1_opp_players" multiple>
+                  </select>
+
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <label for="form1_new_opp_players">New Opp-players Not in List </label>
+                    <input type="number" class="form-control form-control-lg" name="form1_new_opp_players" placeholder="Nothing Selected" min="0" max="15" id="form1_new_opp_players" oninput="validity.valid;" required>
+                </div>
+              </div>
+            </div>
+            <br>
+
+            <button type="submit" id="half" class="btn submit">Submit</button>
+
+            <br>
+          </form>
+
+          <form id="form2" action="{{ url_for('recommendation')}}" method="post">
+
+            <div class="form-group" hidden>
+              <div class="form-row">
+                  <input type="text" name="opposite_team" id="opposite_team">
+                  <input type="text" name="toss" id="toss">
+                  <input type="text" name="bat_first" id="bat_first">
+                  <input type="text" name="date" id="date">
+                  <input type="text" name="match_timing" id="match_timing">
+                  <input type="text" name="ground" id="ground">
+                  <input type="text" name="ground_country" id="ground_country">
+                  <input type="number" name="new_pak_players"  id="new_pak_players">
+                  <input type="number" name="new_opp_players" id="new_opp_players">
+
+                  <select type="text" class="selectpicker" id="pak_players" name="pak_players" multiple>
+                  </select>
+                  <select type="text" class="selectpicker" id="opp_players" name="opp_players" multiple>
+                  </select>
+              </div>
+            </div>
+
+            <h3 class="comp-h3">Select Pakistani players you definitely want to include in the selection </h3>
+            <h5 class="comp-h5">Select Pakistani players you definitely want to include in the selection </h5>
+            <div class="form-group">
+              <div class="form-row pakistan">
+              </div>
+            </div>
+
+            <h3 class="comp-h3">Select Opposite players you definitely want to include in the selection </h3>
+            <h5 class="comp-h5">Select Opposite players you definitely want to include in the selection </h5>
+            <div class="form-group">
+              <div class="form-row opposite">
+              </div>
+            </div>
+
+            <button type="submit" id="submit2"  class="btn submit">Submit</button>
+            <!-- onclick="loading();" -->
+
+          </form>
+
+        </div>
+        <div class="col-2"></div>
+      </div>
+    </div>
+    <!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"> -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" ></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+
+    <script type="text/javascript">
+
+
+
+
+    const timer = document.getElementById('stopwatch');
+
+    var hr = 0;
+    var min = 0;
+    var sec = 0;
+    var stoptime = true;
+
+    function timerCycle() {
+      sec = parseInt(sec);
+      min = parseInt(min);
+      hr = parseInt(hr);
+
+      sec = sec + 1;
+
+      if (sec == 60) {
+        min = min + 1;
+        sec = 0;
+      }
+      if (min == 60) {
+        hr = hr + 1;
+        min = 0;
+        sec = 0;
+      }
+
+      if (sec < 10 || sec == 0) {
+        sec = '0' + sec;
+      }
+      if (min < 10 || min == 0) {
+        min = '0' + min;
+      }
+      if (hr < 10 || hr == 0) {
+        hr = '0' + hr;
+      }
+
+      timer.innerHTML = hr + ':' + min + ':' + sec;
+
+      setTimeout("timerCycle()", 1000);
+
+    }
+
+    function loading(){
+        $("#loading").removeAttr("hidden");
+        $("#waiting").removeAttr("hidden");
+        $("#stopwatch").removeAttr("hidden");
+        timerCycle();
+        $("#form2").hide();
+        $(".nav-link").each(function(){
+          $(this).removeAttr('href');
+          $(this).addClass('disabled');
+        })
+
+        total_pak_comp_players = $('input[name="comp-pak-players"]:checked').length
+        total_opp_comp_players = $('input[name="comp-opp-players"]:checked').length
+        total_pak_players = $('#pak_players').val().length
+        total_opp_players = $('#opp_players').val().length
+
+        var nc_pak_players = total_pak_players - total_pak_comp_players;
+        var nc_opp_players = total_opp_players - total_opp_comp_players;
+
+        console.log(total_pak_players)
+        console.log(total_pak_comp_players)
+        console.log(nc_pak_players)
+
+        var pak_players_to_choose = 11-total_pak_comp_players;
+        var opp_players_to_choose = 11-total_opp_comp_players
+
+        console.log(pak_players_to_choose )
+
+        pak_combinations = Fact(nc_pak_players) / (Fact(pak_players_to_choose) * Fact(nc_pak_players - pak_players_to_choose));
+        opp_combinations = Fact(nc_opp_players) / (Fact(opp_players_to_choose) * Fact(nc_opp_players - opp_players_to_choose));
+
+        total_combinations = pak_combinations * opp_combinations;
+        console.log(total_combinations)
+
+        if (total_combinations > 4000){
+          $(".progress").removeAttr("hidden");
+          count=0
+          var width = 0;
+          var id = setInterval(async function() {
+            if (width >= 99) {
+              clearInterval(id);
+            } else {
+              count = count + 1;
+              percent = (4000*count)/total_combinations * 100
+              width = percent
+              // console.log(percent)
+              $(".progress-bar").css('width',width + "%");
+            }
+          }, 1000);
+
+        }
+
+
+
+
+     }
+
+     function Fact(num){
+          var val=1;
+          for (var i = 2; i <= num; i++)
+              val = val * i;
+          return val;
+     }
+
+
+
+      var unique_players = {{ unique_players | tojson}};
+      var unique_ground_countries = {{ unique_ground_countries | tojson}};
+      var unique_grounds  = {{ unique_grounds | tojson}}
+
+
+      // filling pak-players options
+      for (var i=0; i<unique_players.length; i++) {
+        if (unique_players[i]['player_country'] == "Pakistan"){
+          var option = document.createElement("option");
+          option.text = unique_players[i]['player_name'];
+          $('#form1_pak_players').append(option);
+        }
+      }
+
+      // filling ground countries
+      for (var i=0; i<unique_ground_countries.length; i++){
+        var option = document.createElement("option");
+        option.text = unique_ground_countries[i]['Ground_Country'];
+        $('#form1_ground_country').append(option)
+      }
+
+      // filling grounds
+      for(var i=0;i<unique_grounds.length; i++){
+        var option_ground = document.createElement("option");
+        option_ground.text = unique_grounds[i]['Ground'];
+        $('#form1_ground').append(option_ground)
+      }
+
+      var option_ground = document.createElement("option");
+      option_ground.text = "other";
+      $("#form1_ground").append(option_ground)
+
+      // hide ground_country in the beginning
+
+      $('#ground_country_div').hide();
+      $('#form1_ground_country').removeAttr('required');
+
+      //show ground_country div when ground is other
+      $('#form1_ground').change(function() {
+        if ($('#form1_ground').val() == "other") {
+          $('#ground_country_div').show();
+          $('#form1_ground_country').attr('required', 'required');
+        }else{
+          $('#ground_country_div').hide();
+          $('#form1_ground_country').removeAttr('required');
+
+        }
+      })
+
+      // opposite team and players
+
+      $(document).ready(function () {
+        if ($("#form1_opposite_team option:selected").text() == ""){
+          console.log("i am uinside empty")
+          $("#form1_opp_players").attr("disabled", true);
+          $(".selectpicker[data-id='form1_opp_players']").addClass("disabled");
+          $('#form1_opp_players').selectpicker('refresh');
+        }else{
+          var opp_player_cookie = getCookie('opp_players').split(',');
+          console.log(opp_player_cookie)
+
+          $('#form1_opposite_team').val($("#form1_opposite_team option:selected").text()).trigger('change');
+
+          for (i=0;i<opp_player_cookie.length;i++){
+            text=opp_player_cookie[i]+" ";
+            $('#form1_opp_players option:contains("'+text+'")').prop('selected', true)
+
+          }
+          $('#form1_opp_players').selectpicker('refresh');
+
+        }
+
+      })
+
+
+      $('#form1_opposite_team').change(function() {
+
+        console.log("enter here")
+        $('#form1_opp_players').find('option').remove()
+        var selectedCountry = $("#form1_opposite_team option:selected").text();
+        console.log(selectedCountry);
+        for (var i=0; i<unique_players.length; i++){
+          if (unique_players[i]['player_country'] == selectedCountry) {
+            var option = document.createElement("option");
+            option.text = unique_players[i]['player_name'];
+            $('#form1_opp_players').append(option)
+          }
+        }
+
+        $("#form1_opp_players").prop("disabled", false);
+        $(".selectpicker[data-id='form1_opp_players']").removeClass("disabled");
+        $('#form1_opp_players').selectpicker('refresh');
+
+      })
+
+      //form2
+      $("#form2").hide();
+
+      $(document).ready(function(){
+        $('select').selectpicker();
+      })
+
+      //verifying the number of players
+      $("#form1").submit(function() {
+
+        total_pak_players = ($('#form1_pak_players').val()).length + parseInt($('#form1_new_pak_players').val());
+        total_opp_players = ($('#form1_opp_players').val()).length + parseInt($('#form1_new_opp_players').val());
+        setCookie('opp_players', $('#form1_opp_players').val());
+
+        if (total_pak_players < 11) {
+          alert("Total Pakistani players (selected pak players + the new pak-players not in the list) should be more than or equal to 11");
+          return false;
+        }else if (total_pak_players > 15){
+          alert("Total Pakistani players (selected pak players + the new pak-players not in the list) should be less than or equal to 15");
+          return false;
+        }else if (total_opp_players < 11) {
+          alert("Total Opposite Team players (selected opp players + the new opp-players not in the list) should be more than or equal to 11");
+          return false;
+        }else if (total_opp_players > 15) {
+          alert("Total Opposite Team players (selected opp players + the new opp-players not in the list) should be less than or equal to 15");
+          return false;
+        }else if (total_pak_players == 11 & total_opp_players == 11) {
+          alert("Please enter more than 11 players for atleast one of the team to make a recommendation");
+          return false;
+        }else{
+
+
+          $("#opposite_team").val($("#form1_opposite_team").val());
+          $("#toss").val($("#form1_toss").val());
+          $("#bat_first").val($("#form1_bat_first").val());
+          $("#date").val($("#form1_date").val());
+          $("#match_timing").val($("#form1_match_timing").val());
+          $("#ground").val($("#form1_ground").val());
+          $("#ground_country").val($("#form1_ground_country").val());
+          $("#new_pak_players").val($("#form1_new_pak_players").val());
+          $("#new_opp_players").val($("#form1_new_opp_players").val());
+
+          selected_pak_players = ($('#form1_pak_players').val()).length;
+          new_pak_players = parseInt($('#form1_new_pak_players').val());
+          selected_opp_players = ($('#form1_opp_players').val()).length;
+          new_opp_players = parseInt($('#form1_new_opp_players').val());
+
+          console.log($('#form1_pak_players').val());
+          console.log($('#form1_opp_players').val());
+          console.log(new_pak_players);
+          console.log(new_opp_players);
+
+          for (var i=1;i<=selected_pak_players;i++){
+            var option = document.createElement("option");
+            option.text = $('#form1_pak_players').val()[i-1];
+            console.log(option.text);
+            $('#pak_players').append(option);
+            $("#form2 .pakistan").append('<div class="col-md-6 col-sm-12 selected-players"><input type="checkbox" name="comp-pak-players" value="' + $('#form1_pak_players').val()[i-1] + '\"><label class="player" for="pak-player-'+ i +'\">  ' + $('#form1_pak_players').val()[i-1] + '</label></div>');
+          }
+
+          for (var j=selected_pak_players+1;j<=total_pak_players;j++){
+            var option = document.createElement("option");
+            option.text = "New Player " + (j-selected_pak_players);
+            console.log(option.text);
+            $('#pak_players').append(option);
+            $("#form2 .pakistan").append('<div class="col-md-6 col-sm-12 selected-players"><input type="checkbox" name="comp-pak-players" value="New Player ' + (j-selected_pak_players) + '\"><label class="player" for="pak-player-'+ j +'\">  New Player ' + (j-selected_pak_players) + '</label></div>');
+          }
+
+          for (var i=1;i<=selected_opp_players;i++){
+            console.log("i do enter here in opp");
+            var option = document.createElement("option");
+            option.text = $('#form1_opp_players').val()[i-1];
+            $('#opp_players').append(option);
+            $("#form2 .opposite").append('<div class="col-md-6 col-sm-12 selected-players"><input type="checkbox" name="comp-opp-players" value="' + $('#form1_opp_players').val()[i-1] + '\"><label class="player" for="opp-player-'+ i +'\">  ' + $('#form1_opp_players').val()[i-1] + '</label></div>');
+          }
+
+          for (var j=selected_opp_players+1;j<=total_opp_players;j++){
+            console.log("i do enter here in new opp");
+            var option = document.createElement("option");
+            option.text = "New Player " + (j-selected_opp_players);
+            $('#opp_players').append(option);
+            $("#form2 .opposite").append('<div class="col-md-6 col-sm-12 selected-players"><input type="checkbox" name="comp-opp-players" value="New Player ' + (j-selected_opp_players) + '\"><label class="player" for="opp-player-'+ j +'\">  New Player ' + (j-selected_opp_players) + '</label></div>');
+          }
+
+          $("#pak_players option").each(function(){
+              console.log($(this).text())
+              console.log($(this).attr('selected'));
+              $(this).attr('selected', true);
+              console.log($(this).attr('selected'));
+          });
+
+          $("#opp_players option").each(function(){
+            console.log($(this).text())
+            console.log($(this).attr('selected'));
+            $(this).attr('selected', true);
+            console.log($(this).attr('selected'));
+          });
+
+          $("#form1").hide();
+          $("#form2").show();
+          return false;
+        }
+
+      });
+
+      //Cookie functions for setting and retrieving, the duration I set is 24hrs only.
+      function setCookie(key, value) {
+          var expires = new Date();
+          expires.setTime(expires.getTime() + (1 * 24 * 60 * 60 * 1000));
+          document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
+      }
+
+      function getCookie(key) {
+          var key = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
+          return key ? key[2] : null;
+      }
+
+
+
+      $("#form2").submit(function(){
+          pak_comp_players = $('input[name="comp-pak-players"]:checked')
+          opp_comp_players = $('input[name="comp-opp-players"]:checked')
+          total_pak_comp_players = $('input[name="comp-pak-players"]:checked').length;
+          total_opp_comp_players = $('input[name="comp-opp-players"]:checked').length;
+
+          if (total_pak_comp_players==11 & total_opp_comp_players==11) {
+            alert("Please select less than 11 players compulsory of atleast 1 team to get the team recommendation. Please try again.");
+            return false;
+          }else if (total_pak_comp_players>11 || total_opp_comp_players>11){
+            alert("You can not select more than 11 players compulsory. Please Try Again.");
+            return false;
+          } else {
+            loading();
+            return true;
+          }
+
+      })
+
+
+
+
+
+
+
+
+    </script>
+
+  </body>
+</html>
