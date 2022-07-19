@@ -33,15 +33,12 @@ chardet==3.0.4
 Click==7.0
 cliff==3.10.1
 cloudpickle==1.3.0
-clyent==1.2.2
+clyent
 cmaes==0.8.2
 cmake==3.22.3
 cmd2==2.4.1
 colorama==0.4.3
 colorlog==6.6.0
-conda==4.12.0
-conda-build==3.18.11
-conda-verify==3.4.2
 constantly==15.1.0
 contextlib2==0.6.0.post1
 crochet==2.0.0
@@ -236,9 +233,6 @@ ruamel_yaml==0.15.87
 scikit-image==0.16.2
 scikit-learn==1.0.2
 scipy==1.4.1
-Scrapy==2.6.1
-scrapy-splash==0.8.0
-seaborn==0.10.0
 selenium==4.1.0
 Send2Trash==1.5.0
 service-identity==21.1.0
