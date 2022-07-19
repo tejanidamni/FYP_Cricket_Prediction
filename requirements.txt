@@ -246,8 +246,6 @@ stevedore==3.5.0
 sympy==1.5.1
 tblib==1.6.0
 tenacity==8.0.1
-tensorboard==2.0.0
-tensorflow==2.0.0
 tensorflow-estimator==2.0.0
 termcolor==1.1.0
 terminado==0.8.3
