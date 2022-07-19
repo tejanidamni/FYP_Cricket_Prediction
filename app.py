@@ -20,7 +20,7 @@ with open('grounds.json', 'r') as f:
 with open('ground_countries.json', 'r') as f:
     unique_ground_countries = json.loads(f.read())
 # Load the pickle model
-model = pickle.load(open("final_model.pkl", "rb"))
+model = pickle.load(open("final_model_copy.pkl", "rb"))
 
 app = Flask(__name__)
 
