@@ -217,7 +217,6 @@ regex==2021.11.10
 requests==2.22.0
 requests-file==1.5.1
 rope==0.16.0
-Rtree==0.9.3
 ruamel_yaml==0.15.87
 scikit-image==0.16.2
 scikit-learn==1.0.2
