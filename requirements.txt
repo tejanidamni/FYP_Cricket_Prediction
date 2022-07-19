@@ -186,7 +186,6 @@ pydocstyle==4.0.1
 pyflakes==2.1.1
 Pygments==2.5.2
 pylint==2.4.4
-pyodbc===4.0.0-unsupported
 pyOpenSSL==19.1.0
 pyparsing==2.4.6
 pyperclip==1.8.2
@@ -206,7 +205,6 @@ python-jsonrpc-server==0.3.4
 python-language-server==0.31.7
 python-socketio==4.6.0
 pytz==2019.3
-pytz-deprecation-shim==0.1.0.post0
 PyWavelets==1.1.1
 PyYAML==5.3
 pyzmq==18.1.1
