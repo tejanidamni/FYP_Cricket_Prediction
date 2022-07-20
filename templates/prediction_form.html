@@ -13,6 +13,10 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
     <title>FYP website</title>
+    <script type="text/javascript">
+       $(".selectpicker").selectpicker('render');
+    </script>
+      
     <style media="screen">
 
     body{
@@ -295,14 +299,7 @@
     
 
     <script type="text/javascript">
-      
      
-
-    $(function(){ $(".selectpicker").selectpicker('render'); })
-      
-    $(document).ready(function(){
-        $('body').fadeIn(2000);
-    });
 
     var unique_players = {{ unique_players | tojson}};
     var unique_ground_countries = {{ unique_ground_countries | tojson}};
@@ -412,10 +409,6 @@
 
     })
 
-
-    $(document).ready(function(){
-      $('select').selectpicker();
-    })
 
     $("#form").submit(function() {
 
