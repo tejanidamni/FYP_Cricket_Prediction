@@ -295,8 +295,14 @@
     
 
     <script type="text/javascript">
+      
+     
 
     $(function(){ $(".selectpicker").selectpicker('render'); })
+      
+    $(document).ready(function(){
+        $('body').fadeIn(2000);
+    });
 
     var unique_players = {{ unique_players | tojson}};
     var unique_ground_countries = {{ unique_ground_countries | tojson}};
