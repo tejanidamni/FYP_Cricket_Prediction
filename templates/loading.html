@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+  <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script> -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script> -->
+
+
+  <title>FYP website</title>
+  <style media="screen">
+
+  body{
+    background-image: url({{ url_for('static', filename='images/multicolor.jpeg') }});
+    height: 100;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    font-family: "Courier New", Courier, monospace;
+    line-height: 3.1rem;
+  }
+
+  h1{
+    /* font-size: 2rem;
+    font-weight: bold; */
+    margin-top: 3%;
+  }
+
+  h3{
+    margin-top: 3%;
+  }
+
+  h4{
+    margin-top: 5%;
+
+  }
+
+  h5{
+    margin-top: 5%;
+  }
+
+  .btn{
+    background-color: silver;
+    font-weight: normal;
+    font-size: 2.2rem;
+    border: none; /* Remove borders */
+    color: black; /* White text */
+    background-color: white;
+  }
+
+  .submit:hover {
+    background-color: #1f8d9c; /* Green */
+    color: white;
+  }
+
+  .submit {
+    margin-bottom: 5%;
+  }
+
+  .form-group{
+    margin-bottom: 0%;
+  }
+
+  .bootstrap-select > .dropdown-toggle.bs-placeholder{
+    color:#495057;
+  }
+
+  label{
+    font-size: 0.9rem;
+    margin-top: 3%;
+  }
+
+  .input-group{
+    padding-top: 0.5%;
+  }
+
+  select option:not(:disabled) {
+    color:black;
+  }
+
+
+  .active{
+    color:black;
+  }
+  .nav-item{
+    background-color: silver;
+    color:black;
+  }
+
+
+
+
+  input[type=checkbox]
+  {
+    width: 20%;
+
+  }
+  .player{
+    font-size: 1.2rem;
+  }
+
+  .selected-players{
+    text-align: left;
+  }
+
+  .pakistan{
+    margin-left: 6%;
+
+  }
+
+  .opposite {
+    margin-left: 6%;
+    margin-bottom:3%;
+  }
+
+  div#loading {
+    background: url({{ url_for('static', filename='/ZKZx.gif')}}) no-repeat;
+    cursor: wait;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 20rem;
+
+  }
+
+  .nav-item{
+    background-color: #58d6b9;
+    color:white;
+    font-size: bold;
+  }
+
+  .nav-tabs .nav-link.active {
+    background-color: #58d6C1;
+    color:white;
+    font-size: bold;
+
+  }
+
+  .nav-tabs .nav-link.disabled {
+    background-color: #58d6b9;
+    color:white;
+    font-size: bold;
+
+  }
+  #waiting{
+    margin-bottom: 13rem;
+  }
+
+  @media (max-width: 576px) {
+    h1 {display:none}
+    h3 {display:block}
+
+    .comp-h5{display:block}
+    .comp-h3{display:none}
+
+
+
+  }
+
+  @media (min-width: 576px) and (max-width: 767.98px) {
+    h1 {display:none}
+    h3 {display:block}
+
+    .comp-h5{display:block}
+    .comp-h3{display:none}
+
+  }
+
+  @media (min-width: 768px) and (max-width: 991.98px) {
+
+    h1 {display:none}
+    h3 {display:block}
+
+    .comp-h5{display:none}
+    .comp-h3{display:block}
+
+    label{
+      font-size: 0.9rem;
+    }
+
+   }
+
+  @media (min-width: 992px) and (max-width: 1199.98px) {
+
+    h1 {display:block}
+    h3 {display:none}
+
+    .comp-h5{display:none}
+    .comp-h3{display:block}
+
+    nav{
+      font-size: 1.5rem;
+    }
+
+    label{
+      font-size: 0.9rem;
+    }
+  }
+
+
+  @media (min-width: 1200px) {
+
+    h1 {display:block}
+    h3 {display:none}
+
+    .comp-h5{display:none}
+    .comp-h3{display:block}
+
+    nav{
+      font-size: 1.5rem;
+    }
+    label{
+      font-size: 1.5rem;
+    }
+
+  }
+
+
+ .col-12{
+   padding: 0%;
+ }
+
+ .stopwatch{
+   padding: 2%;
+   margin-bottom:5%;
+ }
+
+
+  </style>
+</head>
+  <body>
+    <div class="h-100 text-white" >
+      <div class="row">
+        <div class="col-12">
+          <nav class="nav nav-tabs nav-justified">
+            <a class="nav-item nav-link" href="prediction">Cricket Outcome Predictor</a>
+            <a class="nav-item nav-link active" href="recommendation">Recommendation System</a>
+          </nav>
+        </div>
+      </div>
+      <div class="row h-100">
+        <div class="col-2"></div>
+
+        <div class="col-8 text-center font-weight-bolder">
+          <br>
+          <h1>Recommendation System For Pakistan Cricket Team </h1>
+          <h3>Recommendation System For Pakistan Cricket Team </h3>
+          <br>
+
+
+          <div id="loading"class= "justify-content-center" hidden></div>
+
+          <div id="stopwatch" hidden>
+            00:00:00
+          </div>
+
+          <div class="progress" >
+            <div class="progress-bar bg-success" role="progressbar" style="" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+
+          <h4 id="waiting" hidden>This process would take less than five minutes. Please wait.
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+          </h4>
+
+          <form class="data_form" action="{{ url_for('recommendation_result')}}" method="post" hidden>
+
+            <input type="number" name="losing_percentage"  id="losing_percentage">
+            <input type="number" name="winning_percentage" id="winning_percentage">
+            <select type="text" class="selectpicker" id="pak_team" name="pak_team" multiple>
+            </select>
+            <select type="text" class="selectpicker" id="opp_team" name="opp_team" multiple>
+            </select>
+            <button type="submit" id="submit_btn" class="btn submit">Submit</button>
+
+          </form>
+
+
+        </div>
+        <div class="col-2"></div>
+      </div>
+    </div>
+    <!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"> -->
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" ></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+
+  <script type="text/javascript">
+
+
+
+    const timer = document.getElementById('stopwatch');
+
+    var hr = 0;
+    var min = 0;
+    var sec = 0;
+    var stoptime = true;
+
+    function timerCycle() {
+      sec = parseInt(sec);
+      min = parseInt(min);
+      hr = parseInt(hr);
+
+      sec = sec + 1;
+
+      if (sec == 60) {
+        min = min + 1;
+        sec = 0;
+      }
+      if (min == 60) {
+        hr = hr + 1;
+        min = 0;
+        sec = 0;
+      }
+
+      if (sec < 10 || sec == 0) {
+        sec = '0' + sec;
+      }
+      if (min < 10 || min == 0) {
+        min = '0' + min;
+      }
+      if (hr < 10 || hr == 0) {
+        hr = '0' + hr;
+      }
+
+      timer.innerHTML = hr + ':' + min + ':' + sec;
+
+      setTimeout("timerCycle()", 1000);
+
+    }
+
+
+    loading()
+
+    function loading(){
+        $("#loading").removeAttr("hidden");
+        $("#waiting").removeAttr("hidden");
+        $("#stopwatch").removeAttr("hidden");
+        timerCycle();
+
+        $(".nav-link").each(function(){
+          $(this).removeAttr('href');
+          $(this).addClass('disabled');
+        })
+
+
+
+     }
+
+     function Fact(num){
+          var val=1;
+          for (var i = 2; i <= num; i++)
+              val = val * i;
+          return val;
+     }
+
+     var jobId = {{ id | tojson | safe}} ;
+     console.log(jobId);
+
+     $(".data_form").submit(function() {
+
+       console.log($('#pak_team').val());
+       console.log($('#opp_team').val());
+       return true;
+
+     })
+
+
+
+
+
+     function update() {
+
+         $.ajax({
+              url: '/result',
+              type: 'POST',
+              data: jobId,
+          }).done(function(data) {
+              console.log(data)
+              const obj = JSON.parse(data);
+              console.log(obj.status);
+              console.log(JSON.parse(data))
+
+              if (obj.status=="finished"){
+
+                $(".progress-bar").css('width', obj.value.progress  + "%");
+
+                for (var i=1;i<=obj.result[2].length;i++){
+                  var option = document.createElement("option");
+                  option.text = obj.result[2][i-1];
+                  $('#pak_team').append(option);
+
+                }
+
+                for (var i=1;i<=obj.result[3].length;i++){
+
+                  var option = document.createElement("option");
+                  option.text = obj.result[3][i-1];
+                  $('#opp_team').append(option);
+
+                }
+
+                $("#pak_team option").each(function(){
+                    $(this).attr('selected', true);
+                });
+
+
+                $("#opp_team option").each(function(){
+                  $(this).attr('selected', true);
+                });
+
+
+                $('#pak-team').selectpicker('refresh');
+                $('#opp-team').selectpicker('refresh');
+
+
+
+                $("#losing_percentage").val(obj.result[0]);
+                $("#winning_percentage").val(obj.result[1]);
+                $(".data_form").trigger('submit')
+
+
+                // window.location.href = '/recommendation_result/' + obj.result[0] + "/" + obj.result[1] + "/"+ obj.result[2] + "/" + obj.result[3];
+              } else if (obj.status=="started") {
+                console.log(obj.value['progress'])
+                console.log(obj.value.progress)
+                $(".progress-bar").css('width', obj.value.progress  + "%");
+                delay(5000).then(() => setTimeout(update(), 1000));
+
+              }else{
+                $(".progress-bar").css('width', 0  + "%");
+                delay(5000).then(() => setTimeout(update(), 1000));
+
+              }
+          })
+
+
+     }
+
+     function delay(time) {
+        return new Promise(resolve => setTimeout(resolve, time));
+      }
+
+
+
+       // .then(function() {           // on completion, restart
+       //     timeoutid = setTimeout(update, 1000);  // function refers to itself
+       //  });
+
+
+    setTimeout(update(), 1000);
+
+
+
+
+
+
+
+
+
+
+
+  </script>
+  </body>
+</html>
