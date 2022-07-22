@@ -4,3 +4,4 @@ scikit-learn==1.0.2
 sklearn==0.0
 sklearn-model==0.0.6
 flask==2.1.0
+redis==4.3.4
